@@ -15,7 +15,9 @@ int test() {
     }
 
     // more complicated exmaple
-    auto state = State("(  a ,   b)(c,d)");
+    std::string s = "(   a ,b )(c,d)";
+    auto state = State(s);
+
     auto parser2 = EParser(state);
     auto result2 = parser2.char_p2('a','b');
     if ( result2.isSuccess()) {
