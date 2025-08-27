@@ -4,6 +4,7 @@ add_library(lib
 
     # parser combinator
     src/parser/basic.cpp
+    src/parser/util.cpp
     src/parser/extended.cpp
 )
 

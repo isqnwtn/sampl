@@ -5,7 +5,7 @@
 
 PResult<char> Parser::anyChar() {
   if (this->isInputEmpty()) {
-    return PResult<char>::error(this->getPos(), "anyChar: end of input");
+    return PResult<char>::error(this->getPos(), "anyChar: empty input");
   }
   if (this->cur() == '\0') {
     return PResult<char>::error(this->getPos(), "anyChar: end of input");
@@ -19,6 +19,14 @@ PResult<char> Parser::char_p(char c) {
   }
   return PResult<char>::error(this->getPos(),
                               "char_p: expected '" + std::string(1, c) + "'");
+}
+
+PResult<std::string> Parser::pstr(std::string s) {
+  if (this->peek(s.size()) == s) {
+    return PResult<std::string>::success(s, this->getPos());
+  }
+  return PResult<std::string>::error(this->getPos(),
+                                     "pstr: expected '" + s + "'");
 }
 
 PResult<std::string> Parser::parseWhile(std::function<bool(char)> predicate) {
@@ -37,8 +45,7 @@ PResult<std::nullptr_t> Parser::ws() {
 }
 
 PResult<std::nullptr_t> Parser::wsn() {
-  while (this->cur() == ' ' || this->cur() == '\t' ||
-         this->cur() == '\n') {
+  while (this->cur() == ' ' || this->cur() == '\t' || this->cur() == '\n') {
     this->consume();
   }
   return PResult<std::nullptr_t>::success(NULL, this->getPos());

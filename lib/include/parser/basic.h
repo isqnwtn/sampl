@@ -10,15 +10,8 @@ class Parser : public State {
  // Constructor
   Parser(State state) : State(state) {}
   Parser(const std::string& input) : State(input) {}
+  Parser(const Parser& parser): State(parser) {}
   ~Parser() {}
-
-  // Helpers
-  Position getPos() const { return this->stateGetPos(); }
-  void setPos(Position pos) { this->stateSetPos(pos); }
-  // consumer helpers
-  char cur() { return this->stateGetCurrentChar(); }
-  char peek() { return this->statePeek(); }
-  char consume() { return this->stateConsume(); }
 
   // utility helpers
   bool isInputEmpty() { return this->input.empty(); }
@@ -27,6 +20,7 @@ class Parser : public State {
   // primary parsers
   PResult<char> anyChar();
   PResult<char> char_p(char c);
+  PResult<std::string> pstr(std::string s);
   PResult<std::string> parseWhile(std::function<bool(char)> predicate);
   PResult<std::nullptr_t> ws();
   PResult<std::nullptr_t> wsn();

@@ -12,41 +12,19 @@ struct Position {
 struct State {
     std::string_view input;
     Position pos;
-    // Constructor
-    // State(const State& state) : State(state.input, state.pos) {}
-    // State(std::string_view input, Position pos) : input(input), pos(pos) {}
 
+    // Constructor
+    State(const State& state): input(state.input), pos(state.pos) {}
     State(const std::string& input) : input(input), pos(Position{0,1,1}) {}
 
     // Members
-    Position stateGetPos() const { return this->pos; }
-    void stateSetPos(Position pos) { this->pos = pos; }
+    Position getPos() const { return this->pos; }
+    void setPos(Position pos) { this->pos = pos; }
 
-    char stateGetCurrentChar() {
-        if (input.empty()) {
-            return '\0';
-        }
-        return input[pos.index];
-    }
-    char statePeek() {
-        if (pos.index + 1 >= input.size()) {
-            return '\0';
-        }
-        return input[pos.index + 1];
-    }
-    char stateConsume() {
-        if (pos.index >= input.size()) {
-            return '\0';
-        }
-        char ret = input[pos.index];
-        pos.index++;
-        pos.column++;
-        if (ret == '\n') {
-            pos.line++;
-            pos.column = 1;
-        }
-        return ret;
-    }
+    char cur();
+    char peek();
+    std::optional<std::string> peek(size_t n);
+    char consume();
 };
 
 template<typename T>
