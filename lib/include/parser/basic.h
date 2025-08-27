@@ -8,7 +8,7 @@
 class Parser : public State {
  public:
  // Constructor
-  Parser(State state) : State(state) {}
+  Parser(const State& state) : State(state) {}
   Parser(const std::string& input) : State(input) {}
   Parser(const Parser& parser): State(parser) {}
   ~Parser() {}
