@@ -50,6 +50,7 @@ PResult<expr::ExprPtr> ExprParser::expr() {
               expr::Op::PLUS);
           node =
               PResult<expr::ExprPtr>::success(std::move(res), this->getPos());
+          break;
         }
         case '-': {
           expr::ExprPtr res = std::make_unique<expr::BinOp>(
@@ -88,6 +89,7 @@ PResult<expr::ExprPtr> ExprParser::term() {
               expr::Op::MULT);
           node =
               PResult<expr::ExprPtr>::success(std::move(res), this->getPos());
+          break;
         }
         case '/': {
           expr::ExprPtr res = std::make_unique<expr::BinOp>(
@@ -132,17 +134,18 @@ PResult<expr::ExprPtr> ExprParser::factor() {
 
 PResult<expr::ExprPtr> ExprParser::group() {
   this->ws();
-  char c = this->peek();
+  char c = this->cur();
   if (c == '(') {
     this->consume();
     this->ws();
     auto node = this->expr();
     if (node.isSuccess()) {
       this->ws();
-      c = this->peek();
+      c = this->cur();
       if (c == ')') {
         this->consume();
-        return node;
+        auto res = std::make_unique<expr::GroupExpr>(std::move(node.yield()));
+        return PResult<expr::ExprPtr>::success(std::move(res), this->getPos());
       } else {
         this->setPos(this->getPos());
         return PResult<expr::ExprPtr>::error(this->getPos(), "expected ')'");

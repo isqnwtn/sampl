@@ -84,7 +84,9 @@ public:
   ExprPtr &getRight() { return right; }
   ExprType getType() const override { return BINOP; }
   std::string toString() const override {
-    return left->toString() + " " + opToString(op) + " " + right->toString();
+    std::string left_string = left ?  this->left->toString() : "<null>";
+    std::string right_string = right ? this->right->toString() : "<null>";
+    return left_string + " " + opToString(op) + " " + right_string;
   }
 };
 
@@ -99,4 +101,4 @@ public:
   std::string toString() const override { return "(" + expr->toString() + ")"; }
 };
 
-} // namespace exp
+} // namespace expr

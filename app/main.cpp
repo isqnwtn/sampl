@@ -61,7 +61,7 @@ int test2() {
 }
 
 int test3() {
-    std::string s = "ident * 21";
+    std::string s = "ident * ( a + 12 )";
     ExprParser parser(s);
     auto result = parser.expr();
     if ( result.isSuccess()) {
