@@ -5,6 +5,9 @@ project(MyProject)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+# set build type
+set(CMAKE_BUILD_TYPE Debug)
+
 # for clangd
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 

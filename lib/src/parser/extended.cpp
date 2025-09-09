@@ -2,7 +2,7 @@
 #include <utility>
 #include "parser/extended.h"
 
-PResult<std::pair<char,char>> EParser::char_p2(char c1, char c2) {
+PResult<std::pair<char,char>> ExtendedParser::char_p2(char c1, char c2) {
     if (cur()!= '('){
         return PResult<std::pair<char,char>>::error(getPos(),"char_p2: expected '('");
     }

@@ -5,8 +5,11 @@
 char State::cur() {
     if (input.empty()) {
         return '\0';
+    } else if (pos.index >= input.size()) {
+        return '\0';
+    } else {
+        return input[pos.index];
     }
-    return input[pos.index];
 }
 
 char State::peek() {

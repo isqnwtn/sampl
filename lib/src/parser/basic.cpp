@@ -50,3 +50,61 @@ PResult<std::nullptr_t> Parser::wsn() {
   }
   return PResult<std::nullptr_t>::success(NULL, this->getPos());
 }
+
+PResult<int> Parser::int_p() {
+  std::string result;
+  bool success = false;
+  while (this->cur() >= '0' && this->cur() <= '9') {
+    success = true;
+    result += this->consume();
+  }
+  if (success) {
+    return PResult<int>::success(std::stoi(result), this->getPos());
+  } else {
+    return PResult<int>::error(this->getPos(), "int_p: expected integer");
+  }
+}
+
+PResult<double> Parser::double_p() {
+  std::string result;
+  bool decimal_point = false;
+  bool success = false;
+  while ((this->cur() >= '0' && this->cur() <= '9') || this->cur() == '.') {
+    success = true;
+    if (this->cur() == '.') {
+      result += this->consume();
+      decimal_point = true;
+      break;
+    } else {
+      result += this->consume();
+    }
+  }
+  if (decimal_point && success) {
+    while (this->cur() >= '0' && this->cur() <= '9') {
+      result += this->consume();
+    }
+  }
+  if (success) {
+    return PResult<double>::success(std::stod(result), this->getPos());
+  } else {
+    return PResult<double>::error(this->getPos(), "double_p: expected float");
+  }
+}
+
+PResult<std::string> Parser::ident_p() {
+  std::string result;
+  // first charachter should be a letter or underscore
+  if ((cur() >= 'a' && cur() <= 'z') || (cur() >= 'A' && cur() <= 'Z') ||
+      cur() == '_') {
+    result += this->consume();
+  } else {
+    return PResult<std::string>::error(
+        this->getPos(), "identifier: expected letter or underscore");
+  }
+  // the rest can be letters, numbers, or underscores
+  while ((cur() >= 'a' && cur() <= 'z') || (cur() >= 'A' && cur() <= 'Z') ||
+         (cur() >= '0' && cur() <= '9') || cur() == '_') {
+    result += this->consume();
+  }
+  return PResult<std::string>::success(result, this->getPos());
+}

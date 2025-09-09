@@ -24,4 +24,7 @@ class Parser : public State {
   PResult<std::string> parseWhile(std::function<bool(char)> predicate);
   PResult<std::nullptr_t> ws();
   PResult<std::nullptr_t> wsn();
+  PResult<int> int_p();
+  PResult<double> double_p();
+  PResult<std::string> ident_p();
 };
