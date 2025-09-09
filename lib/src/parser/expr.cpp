@@ -36,7 +36,7 @@ PResult<expr::ExprPtr> ExprParser::expr() {
     // if it's successful parse the possible space
     ws();
     // check for the operator and make sure it's + or -
-    char c = peek();
+    char c = cur();
     while (c == '+' || c == '-') {
       this->consume();
       // again parse possible space and the right expr
@@ -60,7 +60,7 @@ PResult<expr::ExprPtr> ExprParser::expr() {
         }
         }
         ws();
-        c = peek();
+        c = cur();
       }
     }
     return node;
@@ -74,7 +74,7 @@ PResult<expr::ExprPtr> ExprParser::term() {
     // if it's successful parse the possible space
     ws();
     // check for the operator and make sure it's * or /
-    char c = peek();
+    char c = cur();
     while (c == '*' || c == '/') {
       this->consume();
       // again parse possible space and the right expr
@@ -97,7 +97,7 @@ PResult<expr::ExprPtr> ExprParser::term() {
         }
         }
         ws();
-        c = peek();
+        c = cur();
       }
     }
     return node;
