@@ -6,8 +6,9 @@ find_package(Boost REQUIRED COMPONENTS unit_test_framework)
 
 if(Boost_FOUND)
     include_directories(${Boost_INCLUDE_DIRS})
-    add_executable(expr-tests main.cpp)
-    # this linking causes some free() related errors, hence commented it out
-    # enable it back after investigating the issue
-    # target_link_libraries(foo-tests Boost::unit_test_framework)
+    add_executable(sampl-tests main.cpp)
+    target_link_libraries(sampl-tests PRIVATE lib
+        # this causes some free() error
+        #Boost::unit_test_framework
+    )
 endif()
