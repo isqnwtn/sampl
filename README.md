@@ -1,5 +1,5 @@
 [![Licence](https://img.shields.io/github/license/Ileriayo/markdown-badges?style=for-the-badge)](./LICENSE)
-![main workflow](https://github.com/isqnwtn/sampl/actions/workflows/main.yml/badge.svg)
+![main workflow](https://github.com/isqnwtn/sampl/actions/workflows/cmake-single-platform.yml/badge.svg)
 
 # SaMPL
 SaMPL is recursive acronym for SaMPL Meta Programming Language. It is a general purpose, statically typed,
