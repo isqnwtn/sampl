@@ -1,5 +1,6 @@
 #include "parser/util.h"
 #include <optional>
+#include <string>
 #include <string_view>
 
 char State::cur() {
@@ -31,6 +32,16 @@ char State::consume() {
         pos.column = 1;
     }
     return ret;
+}
+
+int State::consume(int len){
+    if(pos.index + len >= input.size()){
+        return -1;
+    }
+    for(int i = 0; i < len; i++){
+        consume();
+    }
+    return len;
 }
 
 std::optional<std::string> State::peek(size_t n) {

@@ -127,8 +127,8 @@ PResult<expr::ExprPtr> ExprParser::factor() {
     return node;
   } else {
     this->setPos(saved);
-    return PResult<expr::ExprPtr>::error(this->getPos(),
-                                         "failed to parse factor");
+    return PResult<expr::ExprPtr>::error(
+        this->getPos(), "failed to parse any of value | identifier | group");
   }
 }
 

@@ -23,6 +23,7 @@ PResult<char> Parser::char_p(char c) {
 
 PResult<std::string> Parser::pstr(std::string s) {
   if (this->peek(s.size()) == s) {
+    this->consume(s.size());
     return PResult<std::string>::success(s, this->getPos());
   }
   return PResult<std::string>::error(this->getPos(),

@@ -5,6 +5,7 @@ add_library(lib
     src/parser/util.cpp
     src/parser/extended.cpp
     src/parser/expr.cpp
+    src/parser/statement.cpp
     # ast
     src/ast/expr.cpp
 )

@@ -1,5 +1,6 @@
 #include <iostream>
 #include "parser/expr.h"
+#include "parser/statement.h"
 #include "parser/util.h"
 #include "parser/basic.h"
 #include "parser/extended.h"
@@ -73,9 +74,23 @@ int test3() {
     }
 }
 
+int test4() {
+    std::string s = "return a*c";
+    StmtParser parser(s);
+    auto result = parser.parseStatement();
+    if ( result.isSuccess()) {
+        std::cout << "Parsed successfully: " << result.get()->toString() << "\n";
+        return 0;
+    } else {
+        std::cerr << "Parse error: " << result.getError() << "\n";
+        return -1;
+    }
+}
+
 
 int main() {
     // test();
     // test2();
-    test3();
+    // test3();
+    test4();
 }

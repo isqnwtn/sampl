@@ -25,6 +25,7 @@ struct State {
   char peek();
   std::optional<std::string> peek(size_t n);
   char consume();
+  int consume(int len);
 };
 
 template <typename T> class PResult {
